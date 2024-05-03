@@ -14,6 +14,7 @@ class CustomPopup extends StatelessWidget {
   final EdgeInsets contentPadding;
   final double? contentRadius;
   final BoxDecoration? contentDecoration;
+  final bool isEnableHaptic;
 
   const CustomPopup({
     super.key,
@@ -24,6 +25,7 @@ class CustomPopup extends StatelessWidget {
     this.backgroundColor,
     this.arrowColor,
     this.showArrow = true,
+    this.isEnableHaptic = false,
     this.barrierColor,
     this.contentPadding = const EdgeInsets.all(15),
     this.contentRadius,
@@ -35,6 +37,7 @@ class CustomPopup extends StatelessWidget {
     final renderBox = anchor.findRenderObject() as RenderBox?;
     if (renderBox == null) return;
     final offset = renderBox.localToGlobal(renderBox.paintBounds.topLeft);
+    if (isEnableHaptic) HapticFeedback.mediumImpact();
     Navigator.of(context).push(_PopupRoute(
       targetRect: offset & renderBox.paintBounds.size,
       backgroundColor: backgroundColor,
